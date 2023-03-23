@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mandrill Event Log</title>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+
+<body>
+<h1>Mandrill Email Event Log</h1>
+<p id="event-message"></p>
+<table class="table table-bordered" style="width:60%"  id="event-log">
+    <tr><th><b>Event Type</b></th>
+        <th><b>Unix timestamp</b></th>
+    </tr>
+
+</table>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js" integrity="sha384-EaUkI/FiMJtEXWAl0dCczvbFvjfzsIF1UNKGJvu9p5JIG71Kih7/kQJvYbBL7HOn" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha384-JUh3U/xjnOlL/7MKh/FzORuvdTxBZuZJUFfG3A51H4GkBkXlS38nZh1jqXd2ElYN" crossorigin="anonymous"></script>
+<script>
+  var socket = io();
+  socket.on('event_notification', function(msg){
+    event_log = '<tr><td>'+msg.event+'</td><td>'+msg.timestamp+'</td></tr>'
+    $('#event-log').append(event_log);
+  });
+
+</script>
+
+</body>
+</html>
